@@ -5,6 +5,9 @@
 
 application.yml
 
+spring-0.0.1-SNAPSHOT.war
+spring-0.0.1-SNAPSHOT.war.original
+
 client/.env.development
 client/.env.production
 client/src/pages/test/*

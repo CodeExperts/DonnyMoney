@@ -36,7 +36,7 @@ const LoginForm = () => {
     console.log("Sending login request with data: ", member); // 요청 데이터 확인
     axios({
       method: "POST",
-      url: `${process.env.REACT_APP_BASE_URL}/login`,
+      url: `${process.env.REACT_APP_LOGIN_URL}`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -51,6 +51,8 @@ const LoginForm = () => {
         localStorage.setItem("role", res.data.role);
         localStorage.setItem("Authorization", res.headers.authorization);
 
+
+        
         logingedCon.onLoggedChange(true);
         navigator("/");
       })

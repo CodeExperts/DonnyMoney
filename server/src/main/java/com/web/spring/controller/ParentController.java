@@ -27,8 +27,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/parents")
-@CrossOrigin
+@RequestMapping("/api/parents")
 public class ParentController {
 
     private final ChildService childService;

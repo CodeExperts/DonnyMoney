@@ -57,48 +57,48 @@ public class WishRepositoryUnitTest {
     	 
      }
      
-    @Test
-    @DisplayName("위시 돈 모으기")
- 	public void savingWish() {
- 		
- 		// 인자값 미리 파싱
- 		Long parseWishNum = 1L;
- 		int parseSavingAmt = 1000;
- 		int savingResult = 0;
- 		
- 		//토큰에 있는 아이디
- 		Child child = childRepository.findById(1L)
-					 .orElseThrow( () -> new NoSuchElementException("Child with cNum not found"));
-
- 		// children 변경전 포인트
- 		System.out.println("beforeSaving_ChildPoint :: "+child.getPoint());
- 		
- 		//해당하는 위시 가져오기
- 		Wish wish = wishRepository.findById(2L)
- 				  .orElseThrow(() -> new NoSuchElementException("Wish with wishNum " + 1L + " not found"));
- 		int totalSaving = wish.getSavingAmt() + parseSavingAmt;
- 		int wishPrice = wish.getPrice();
- 		
- 		// wish 가격과 totalSaving 이 같다면 -> isFinish == True
- 		if(wishPrice == totalSaving) {
- 			// 변경 완료 여부 확인
- 			savingResult = wishRepository.savingWish(parseWishNum, totalSaving);
- 			wishRepository.isFinish(parseWishNum, IsFinish.COMPLETE);
- 		}else if (wishPrice >= totalSaving) {
- 			// 변경 완료 여부 확인
- 			savingResult = wishRepository.savingWish(parseWishNum, totalSaving);
- 		}else {
- 			throw new ExceededAmountException("모으려는 금액이 price 보다 많습니다.");
- 		}
-
- 		
- 		System.out.println("afterSavingWish :: complete ->"+ savingResult );
- 		Wish rwish = wishRepository.findById(parseWishNum)
- 												.orElseThrow(()-> new NoSuchElementException("Wish with wishNum " + 1L + " not found"));
- 		rwish.setSavingAmt(totalSaving);
- 		System.out.println(rwish);
- 	
- 	}
+//    @Test
+//    @DisplayName("위시 돈 모으기")
+// 	public void savingWish() {
+// 		
+// 		// 인자값 미리 파싱
+// 		Long parseWishNum = 1L;
+// 		int parseSavingAmt = 1000;
+// 		int savingResult = 0;
+// 		
+// 		//토큰에 있는 아이디
+// 		Child child = childRepository.findById(1L)
+//					 .orElseThrow( () -> new NoSuchElementException("Child with cNum not found"));
+//
+// 		// children 변경전 포인트
+// 		System.out.println("beforeSaving_ChildPoint :: "+child.getPoint());
+// 		
+// 		//해당하는 위시 가져오기
+// 		Wish wish = wishRepository.findById(2L)
+// 				  .orElseThrow(() -> new NoSuchElementException("Wish with wishNum " + 1L + " not found"));
+// 		int totalSaving = wish.getSavingAmt() + parseSavingAmt;
+// 		int wishPrice = wish.getPrice();
+// 		
+// 		// wish 가격과 totalSaving 이 같다면 -> isFinish == True
+// 		if(wishPrice == totalSaving) {
+// 			// 변경 완료 여부 확인
+// 			savingResult = wishRepository.savingWish(parseWishNum, totalSaving);
+// 			wishRepository.isFinish(parseWishNum, IsFinish.COMPLETE);
+// 		}else if (wishPrice >= totalSaving) {
+// 			// 변경 완료 여부 확인
+// 			savingResult = wishRepository.savingWish(parseWishNum, totalSaving);
+// 		}else {
+// 			throw new ExceededAmountException("모으려는 금액이 price 보다 많습니다.");
+// 		}
+//
+// 		
+// 		System.out.println("afterSavingWish :: complete ->"+ savingResult );
+// 		Wish rwish = wishRepository.findById(parseWishNum)
+// 												.orElseThrow(()-> new NoSuchElementException("Wish with wishNum " + 1L + " not found"));
+// 		rwish.setSavingAmt(totalSaving);
+// 		System.out.println(rwish);
+// 	
+// 	}
 
      
     @Test

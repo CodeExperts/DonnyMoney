@@ -21,6 +21,9 @@ const Agreement = ({childNum, year, month, childName, onPaymentSuccess}) => {
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 여부 확인
   const [hasPlan, sethasPlan] = useState(false);   //리포트 존재 여부 확인
 
+  const [orderInfo, setOrderInfo] = useState([]);
+
+  
   //결제 버튼 누른 후 결제 기능
   const Payment = () => {  
     

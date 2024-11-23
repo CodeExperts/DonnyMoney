@@ -23,9 +23,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	
   @Override
   public void addCorsMappings(CorsRegistry registry) {
-     registry.addMapping("/**")
-     .allowedOriginPatterns("*") // “*“같은 와일드카드를 사용
-     .allowedOrigins("http://localhost:3000")
+     registry.addMapping("/api/**")
+     .allowedOrigins("http://52.79.249.178", "http://localhost:3000", "http://52.79.249.178:9999")
+     .allowedOriginPatterns("http://52.79.249.178", "http://localhost:3000", "http://52.79.249.178:9999") // “*“같은 와일드카드를 사용
      .exposedHeaders(jwtHeader) // 'Authorization' 헤더 값을 받아온다
      .allowedMethods("OPTIONS","GET","POST","PUT","DELETE")
      .allowCredentials(true);

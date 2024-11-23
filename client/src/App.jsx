@@ -18,10 +18,11 @@ export const AuthContext = createContext(); // 유저정보
 
 function App() {
   // Axios 전역 설정
-  axios.defaults.baseURL =
-    process.env.REACT_APP_BASE_URL || "http://localhost:9999";
-  axios.defaults.headers.common["Content-Type"] = "application/json";
+  // axios.defaults.baseURL =
+  //   // process.env.REACT_APP_BASE_URL || "http://52.79.249.178:9999";
+  // axios.defaults.headers.common["Content-Type"] = "application/json";
 
+  console.log("axios.defaults.baseURL>>>>>",axios.defaults.baseURL);
   const location = useLocation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);

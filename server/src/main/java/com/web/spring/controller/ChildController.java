@@ -61,7 +61,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/children")
+@RequestMapping("api/children")
 @Slf4j
 public class ChildController<WishService> { 
 

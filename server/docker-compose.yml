@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: donnymoney
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/my.cnf  # 로컬의 my.cnf 파일을 컨테이너에 마운트
+    command: 
+      - --lower_case_table_names=1
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+
+  springboot:
+    build: .  # springboot 디렉토리로 경로를 수정
+    container_name: springboot_container
+    depends_on:
+      - mysql
+    ports:
+      - "9999:9999"
+
+volumes:
+  db_data:

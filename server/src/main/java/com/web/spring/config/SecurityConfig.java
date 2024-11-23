@@ -1,4 +1,5 @@
 package com.web.spring.config;
+import java.util.Arrays;
 import java.util.Collections;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -57,7 +58,9 @@ public class SecurityConfig {
                             @Override
                             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                                 CorsConfiguration configuration = new CorsConfiguration();
-                                configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
+                                configuration.setAllowedOrigins(Arrays.asList("http://52.79.249.178", "http://localhost:3000", "http://52.79.249.178:9999"));
+//                                configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
+//                                configuration.setAllowedOrigins(Arrays.asList("http://52.79.249.178", "http://localhost:3000"));
                                 configuration.setAllowedMethods(Collections.singletonList("*"));
                                 configuration.setAllowCredentials(true);
                                 configuration.setAllowedHeaders(Collections.singletonList("*"));
@@ -69,6 +72,7 @@ public class SecurityConfig {
        ////////////////////////////////////
         //csrf disable
         http.csrf((auth) -> auth.disable()); //csrf공격을 방어하기 위한 토큰 주고 받는 부분을 비활성화!
+        
         //Form 로그인 방식 disable -> React, JWT 인증 방식으로 변겨예정
         //disable 를 설정하면 시큐리티의 UsernamePasswordAuthenticationFilter비활성됨.
         http.formLogin((auth) -> auth.disable());
@@ -78,9 +82,9 @@ public class SecurityConfig {
         http.authorizeHttpRequests((auth) ->
                 auth
                 		//.requestMatchers("/*").permitAll()
-                        .requestMatchers("/parents/signup/**", "/children/signup/**", "/notification/subscribe/**", "/order/pay/completed/**").permitAll()
-                        .requestMatchers("/swagger-ui", "/swagger-ui/**","/api/logistics","/api/swagger-config","/v3/api-docs/**").permitAll()
-                        .requestMatchers("/admin").hasRole("ADMIN")
+                        .requestMatchers("api/login","api/parents/signup/**", "api/children/signup/**", "api/notification/subscribe/**", "api/order/pay/completed/**").permitAll()
+                        .requestMatchers("api/swagger-ui", "api/swagger-ui/**","/api/logistics","/api/swagger-config","api/v3/api-docs/**").permitAll()
+                        .requestMatchers("api/admin").hasRole("ADMIN")
                         .anyRequest().authenticated()
         );
         System.out.println("request :"+http);

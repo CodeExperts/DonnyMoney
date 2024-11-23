@@ -2,7 +2,7 @@ import React,  { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from "axios";
 
-const Order = ({childNum, year, month, paymentStatusUpdate }) => {
+const Order = ({childNum, year, month, paymentStatusUpdate, setOrderInfo }) => {
 
     //결제 내역 유무
     const [hasPayments, setHasPayments] = useState(false);
@@ -42,6 +42,11 @@ const Order = ({childNum, year, month, paymentStatusUpdate }) => {
           else{
             setHasPayments(true);
             setPayments(res.data);
+
+            // // 가장 최근 결제 정보를 orderInfo에 설정
+            // const latestPayment = res.data[0];  // 배열의 첫 번째 항목이 가장 최근 데이터라고 가정
+            // console.log('LatestPayment >>>>>>>>>>',latestPayment);
+            // setOrderInfo(latestPayment); // 부모 컴포넌트로 전달
           }
           
         })

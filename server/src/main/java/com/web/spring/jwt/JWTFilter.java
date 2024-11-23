@@ -35,6 +35,18 @@ public class JWTFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 				
+    	////////////////////////// 희주 추가 ////////////////////////////
+        // 요청 경로 가져오기
+        String requestURI = request.getRequestURI();
+
+        // 로그인 요청은 필터를 통과시키기
+        if (requestURI.equals("/login") || requestURI.equals("/api/login")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        //////////////////////////////////////////////////////////////
+        
+        
         //request에서 Authorization 헤더를 찾음..인증을 거쳐야하는 서비스에서는 반드시 이 부분이 헤더에 있어야 한다.
     	//헤더에서 Authorization 이름의 키값을 꺼내는 작업을 일단 먼저 한다.
         String authorization= request.getHeader("Authorization");
