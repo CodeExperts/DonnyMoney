@@ -84,11 +84,6 @@ export const ParentNotificationIcon = () => {
     getNotifications();
   }, [memberNo, authorization]); // 수정된 부분: 의존성 배열에 추가
 
-  // 알림 목록 변경시 로그출력해봄
-  // useEffect(() => {
-  //   console.log("알림 목록 변경 : ", notifications);
-  // }, [notifications]);
-
   // 알림목록 바깥 클릭 감지시 처리
   useEffect(() => {
     const handleClickOutside = (event) => {

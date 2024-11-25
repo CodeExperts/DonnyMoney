@@ -27,7 +27,7 @@ const EduVideo = () => {
 
   // videoList가 아직 없으면 로딩 상태 표시
   if (!videoList) {
-    return <div>Loading...</div>;
+    return <Loading>Loading...</Loading>;
   }
 
   // HTML 엔티티 디코딩 함수
@@ -222,4 +222,13 @@ const SpeechBubble = styled.div`
     border-style: solid;
     border-color: #bb3cf7 transparent transparent transparent;
   }
+`;
+
+const Loading = styled.div`
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
 `;

@@ -56,7 +56,7 @@ public class NotificationService {
 	// 클라이언트가 구독을 호출하는 메소드(클라이언트 controller에서 구독페이지 엔드포인트를 생성하는데 사용된다.)
     public SseEmitter subscribe(String uniqueId, final HttpServletResponse response) {
         // 역할과 ID를 조합하여 고유 ID 생성
-    	System.out.println("구독 요청: " + uniqueId);
+//    	System.out.println("구독 요청: " + uniqueId);
 
         // 기존 Emitter가 있을 경우 삭제
         if (emitters.containsKey(uniqueId)) {
@@ -85,7 +85,6 @@ public class NotificationService {
         // 초기 더미 데이터를 전송하여 연결 상태 유지
         sendInitialDummyNotification(uniqueId);
         
-        System.out.println("현재 등록된 Emitters: " + emitters.keySet());
     	
     	return emitter;
     }

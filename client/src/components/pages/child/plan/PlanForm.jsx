@@ -291,6 +291,7 @@ const FormInput = styled.input`
   border-radius: 10px;
   outline: none;
   width: 100%;
+  text-align: center;
 `;
 
 const UpdateBtn = styled.button`
