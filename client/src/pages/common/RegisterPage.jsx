@@ -67,9 +67,7 @@ export const RegisterPage = () => {
 const Outer = styled.div`
   display: flex;
   align-items: center;
-  height: calc(100vh - 300px);
-
-  /* border: 1px solid red; */
+  /* height: calc(100vh - 300px); */
 `;
 const SelectUserType = styled.div`
   margin: 0 auto;
@@ -116,5 +114,4 @@ const SubTitle = styled.div`
 
 const FormSection = styled.div`
   margin: 0 auto;
-  /* border: 1px solid red; */
 `;

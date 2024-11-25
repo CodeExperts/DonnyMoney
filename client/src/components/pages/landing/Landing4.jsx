@@ -69,6 +69,7 @@ const Outer = styled.div`
   text-align: center;
 
   scroll-snap-align: start; /* 섹션 시작 지점에서 스크롤 정지 */
+  background-color: white;
 `;
 
 const Content = styled.div`
@@ -125,5 +126,5 @@ const CardTitle = styled.div`
 `;
 const CardDesc = styled.div`
   font-size: 18px;
-  font-family: 'HakgyoansimDunggeunmisoTTF-R';
+  font-family: "HakgyoansimDunggeunmisoTTF-R";
 `;

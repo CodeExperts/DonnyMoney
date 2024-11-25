@@ -40,14 +40,14 @@ const WishListPage = () => {
             imgSrc={item.imgSrc}
             itemName={item.itemName}
             itemPrice={item.itemPrice}
-            $progressRate={item.progressRate}
+            progressRate={item.progressRate}
             // cardWidth={"200px"}
             // cardBgColor={"#FFD25C"}
-            $cardWidth={"260px"}
-            $cardHeight={"350px"}
-            $cardBgColor={item.childNum === 1 ? "#9774FB" : "#FEBA6F"}
-            $cardFontColor={item.childNum === 1 && "#ffffff"}
-            $cardPadding={"25px"}
+            cardWidth={"260px"}
+            cardHeight={"350px"}
+            cardBgColor={item.childNum === 1 ? "#9774FB" : "#FEBA6F"}
+            cardFontColor={item.childNum === 1 && "#ffffff"}
+            cardPadding={"25px"}
           />
         ))}
       </ListContainer>
@@ -59,7 +59,7 @@ const Outer = styled.div`
   padding: 20px;
   /* border: 1px solid red; */
 `;
-const ListContainer = styled.div`
+export const ListContainer = styled.div`
   margin: 50px auto 0 auto;
   width: 80%;
   display: grid;

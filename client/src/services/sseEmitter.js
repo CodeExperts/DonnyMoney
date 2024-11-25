@@ -12,7 +12,14 @@ export const useSSE = (url, onMessage) => {
     //   console.log("[SSE] 이미 연결되었습니다.");
     // }
     let sse; //
-    sse = new EventSource(url);
+    sse = new EventSource(url); // GET, SSE 연결생성
+    // GET /sse-endpoint HTTP/1.1
+    // Host: example.com
+    // Accept: text/event-stream
+    // Connection: keep-alive
+
+    // 클라이언트는 GET 요청 상태를 유지하며, HTTP연결을 keep-alive로 열어둔 상태로 서버와 실시간으로 데이터를 주고받음
+    // 브라우저의 EventSource 객체가 실제 연결을 유지하고 데이터를 처리를 담당함
 
     const setupSSE = () => {
       console.log("[SSE] 연결시도 중..");
@@ -25,13 +32,12 @@ export const useSSE = (url, onMessage) => {
         if (event.data !== "ping") {
           // ping 이벤트는 무시하거나 연결 상태를 확인할때 사용됨
           // console.log("[SSE] keep-alive ping ");
-          console.log("[SSE] 받은 알림 데이터 : ", event.data);
-
+          console.log("[SSE] 받은 데이터:", event.data);
           try {
             const data = JSON.parse(event.data); // 데이터 파싱
             onMessage && onMessage(data); // 메세지 핸들러 호출
           } catch (err) {
-            console.error("에러 파싱 : ", err);
+            console.error("[SSE] 데이터 처리 에러:", err);
           }
         }
       };
@@ -53,7 +59,7 @@ export const useSSE = (url, onMessage) => {
 
       setEventSource(null);
     };
-  }, []);
+  }, [url]); // 수정된 부분: 의존성 배열에 `onMessage` 추가
 
   return { eventSource, connectionError };
 };

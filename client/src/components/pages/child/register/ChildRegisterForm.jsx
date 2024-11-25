@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../../../../services/api";
 
 const RegisterPage = () => {
   const navigator = useNavigate();
@@ -57,7 +58,7 @@ const RegisterPage = () => {
     if (e.target.name === "id" && e.target.value.trim() !== "") {
       axios({
         method: "GET",
-        url: `${process.env.REACT_APP_BASE_URL}/children/signup/${e.target.value}`,
+        url: `api/children/signup/${e.target.value}`,
       })
         .then((res) => {
           // console.log(res);
@@ -75,7 +76,7 @@ const RegisterPage = () => {
     if (parentInfo.name !== "" && parentInfo.phone !== "") {
       axios({
         method: "POST",
-        url: `${process.env.REACT_APP_BASE_URL}/children/signup/findMyParent`,
+        url: `api/children/signup/findMyParent`,
         data: parentInfo,
       })
         .then((res) => {
@@ -132,7 +133,7 @@ const RegisterPage = () => {
     }
     axios({
       method: "POST",
-      url: `${process.env.REACT_APP_BASE_URL}/children/signup`,
+      url: `api/children/signup`,
       data: child,
     })
       .then((res) => {

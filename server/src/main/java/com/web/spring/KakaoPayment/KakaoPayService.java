@@ -40,9 +40,9 @@ public class KakaoPayService {
         parameters.put("total_amount", String.valueOf(ord.getAmount()));          //상품 총액
         parameters.put("tax_free_amount", "0");                                         //상품 총액
 
-        parameters.put("approval_url", "http://localhost:9999/order/pay/completed/"+ ord.getOrderNum());    // 결제 승인 시 넘어갈 redirect url,
-        parameters.put("cancel_url", "http://localhost:9999/order/pay/cancel/"+ ord.getOrderNum());         // 결제 취소 시 넘어갈 redirect url,
-        parameters.put("fail_url", "http://localhost:9999/order/pay/fail/"+ ord.getOrderNum());             // 결제 실패 시 넘어갈 redirect url,
+        parameters.put("approval_url", "http://54.180.195.153/api/order/pay/completed/"+ ord.getOrderNum());    // 결제 승인 시 넘어갈 redirect url,
+        parameters.put("cancel_url", "http://54.180.195.153/api/order/pay/cancel/"+ ord.getOrderNum());         // 결제 취소 시 넘어갈 redirect url,
+        parameters.put("fail_url", "http://54.180.195.153/api/order/pay/fail/"+ ord.getOrderNum());             // 결제 실패 시 넘어갈 redirect url,
 
         //Header + Body 합치기
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());

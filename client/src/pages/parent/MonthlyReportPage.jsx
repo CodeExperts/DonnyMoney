@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import PlanReport from "../../components/pages/parent/monthly-report/PlanReport";
 import SendMessage from "../../components/pages/parent/monthly-report/SendMessage";
 import SelectOptionNav from "../../components/pages/parent/SelectOptionNav";
-import { GlobalStyles } from "../../styles/GlobalStyle";
 import styled from "styled-components";
 import AccessDeniedPage from "../common/AccessDeniedPage";
 
@@ -31,11 +30,11 @@ const MonthlyReportPage = () => {
         <>
           <ContainAll>
             <SelectOptionNav onHandleData={handleChildData} />
+
             <PlanReport
               childNum={selectOption.childNum}
               year={selectOption.year}
               month={selectOption.month}
-              childName={selectOption.childName}
             />
           </ContainAll>
           <SendMessage childNum={selectOption.childNum} />
@@ -46,11 +45,7 @@ const MonthlyReportPage = () => {
 };
 
 const ContainAll = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  margin-top: 50px; */
-
-  margin-bottom: 150px;
+  margin-bottom: 50px;
 `;
 
 export default MonthlyReportPage;

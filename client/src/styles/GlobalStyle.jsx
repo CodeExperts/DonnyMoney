@@ -16,7 +16,9 @@ body{
   background-size: cover; */
   // background-color: #f0e6ff; /* 연한 보라색 */
 
-  /* background-color: #ECE9F7; */
+  /* background-color: #F1EEE1; */
+  /* background-color: #F1F1F1; */
+  background-color: #F4F1F2;
 }
 
 /* 폰트 정의 */

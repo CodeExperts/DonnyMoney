@@ -3,10 +3,12 @@ import styled from "styled-components";
 import axios from "axios";
 import { PlanContext } from "../../../../pages/context/MoneyPlanContext";
 import { AuthContext } from "../../../../App";
+import api from "../../../../services/api";
 
 const SelectBoxContainer = styled.div`
   position: relative;
   width: 200px;
+  margin-right: 50px;
 `;
 
 const SelectedOption = styled.div`
@@ -15,6 +17,9 @@ const SelectedOption = styled.div`
   border-radius: 5px;
   cursor: pointer;
   background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const OptionsList = styled.ul`
@@ -110,7 +115,7 @@ const SelectBox = () => {
 
     axios({
       method: "GET",
-      url: `${process.env.REACT_APP_BASE_URL}/children/show/plans?year=${year}&month=${month}`,
+      url: `api/children/show/plans?year=${year}&month=${month}`,
       headers: {
         Authorization: token,
         "Content-Type": "application/json",
@@ -133,7 +138,10 @@ const SelectBox = () => {
   return (
     <SelectBoxContainer>
       <SelectedOption onClick={() => setIsOpen(!isOpen)}>
-        {selectedOption || "옵션을 선택하세요"}
+        <div>{selectedOption || "옵션을 선택하세요"}</div>
+        <>
+          <img src="/icons/down.png" width={"15px"} height={"15px"} />
+        </>
       </SelectedOption>
       <OptionsList open={isOpen}>
         {options.map((option) => (
@@ -142,6 +150,7 @@ const SelectBox = () => {
           </OptionItem>
         ))}
       </OptionsList>
+
       {isLoading && <p>로딩 중...</p>}
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
     </SelectBoxContainer>

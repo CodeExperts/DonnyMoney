@@ -30,6 +30,16 @@ public class NotificationController {
 	
 	//Parent나 Child가 알림을 보내거나 알림 목록을 조회하는 엔드포인트
 	private final NotificationService notificationService;
+	
+	// SSE 구독 설정
+	// 해당 아이디에 대한 SSEEmitter를 생성하고 반환한다(서버에서 데이터를 받게 된다)
+	@GetMapping(value = "/subscribe/{role}/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	public SseEmitter subscribe(@PathVariable String role, @PathVariable Long id, HttpServletResponse response) {
+		String uniqueId = role + "-" + id; // "parent-1", "child-1"
+		System.out.println("Emitter created and return uniqueId: " + uniqueId);
+		
+		return notificationService.subscribe(uniqueId, response);
+	}
 
 	// 알림 생성 및 전송 (parent ->  child)
 	@Transactional
@@ -53,20 +63,12 @@ public class NotificationController {
 	    return ResponseEntity.ok().body(notificationResponseDto);
 	}
 	
-	// SSE 구독 설정
-	// 해당 아이디에 대한 SSEEmitter를 생성하고 반환한다(서버에서 데이터를 받게 된다)
-	@GetMapping(value = "/subscribe/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-	public SseEmitter subscribe(@PathVariable Long id, HttpServletResponse response) {
-		System.out.println("Emitter created and returned for ID: " + id);
-		
-		return notificationService.subscribe(id, response);
-	}
-	
 	// 해당 ID에 대한 데이터를 클라이언트에게 전송한다
 	@Transactional
-	@PostMapping("/send-data/{id}")
-	public void sendData(@PathVariable Long id, @RequestBody NotificationRequestDto notiRequestDto) {
-		notificationService.notify(id, notiRequestDto);
+	@PostMapping("/send-data/{role}/{id}")
+	public void sendData(@PathVariable String role, @PathVariable Long id, @RequestBody NotificationRequestDto notiRequestDto) {
+		String uniqueId = role + "-" + id; // "parent-1", "child-1"
+		notificationService.notify(uniqueId, notiRequestDto);
 	}
 	
 
@@ -107,5 +109,6 @@ public class NotificationController {
     	notificationService.updateReadStatus(notiNum);
     	return ResponseEntity.ok().build();
     }
-    
+   
 }
+

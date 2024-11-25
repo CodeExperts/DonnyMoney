@@ -4,8 +4,9 @@ import { Modal } from "../../../commons/Modal";
 import axios from "axios";
 import { AuthContext } from "../../../../App";
 import { formatCurrency } from "../../../../services/GlobalFunction";
+import api from "../../../../services/api";
 
-const WishDetailBox = ({ selectedCard, onSendData }) => {
+const WishDetailBox = ({ selectedCard, onSendData, onCloseDetail }) => {
   const [isModalOpen, setModalOpen] = useState(false); // 모달 열리고 닫고 상태 보관
   const [savingAmt, setSavingAmt] = useState(0); // 사용자가 입력한 저축 금액
   const [currentSaving, setCurrentSaving] = useState(0); // 현재 아이가 가진돈
@@ -28,38 +29,6 @@ const WishDetailBox = ({ selectedCard, onSendData }) => {
     onSendData(data);
   };
 
-  //   const fetchWishData = async () => {
-  //     // console.log("token ================> ", token);
-
-  //     if(!selectedCard.id) {
-  //       console.log("id 없음") ;
-  //       return;
-  //     }
-
-  //     if (selectedCard.id) {
-  //       console.log("fetchWishData if ");
-
-  //       try {
-  //         const response = await axios.get(
-  //           `http://localhost:9999/children/wishes/${selectedCard.id}`,
-  //           {
-  //             headers: {
-  //               Authorization: token, // 필요한 경우 토큰 추가
-  //             },
-  //           }
-  //         );
-
-  //         // console.log("fetchWishData 위시 업데이트된 데이터 ========> ",response.data );
-
-  // // 부모 상태 갱신
-  //         handleSelectCard(response.data); // 새 객체 전달
-
-  //       } catch (error) {
-  //         console.error("Wish 데이터 로드 실패:", error);
-  //         alert("Wish 데이터를 가져오는 데 실패했습니다.");
-  //       }
-  //     }
-  //   };
   // 선택된 wish 데이터를 가져오기 위한 useEffect
   useEffect(() => {
     callMyMoney();
@@ -76,7 +45,7 @@ const WishDetailBox = ({ selectedCard, onSendData }) => {
 
     try {
       const response = await axios.put(
-        `http://localhost:9999/children/saving/wishes`,
+        `api/children/saving/wishes`,
         null, // PUT 요청에서 body가 필요하지 않으므로 null 사용
         {
           params: {
@@ -98,29 +67,17 @@ const WishDetailBox = ({ selectedCard, onSendData }) => {
       setModalOpen(false); // 모달 닫기
     } catch (error) {
       console.error("저축 실패:", error);
-      // if (error.response?.status === 403) {
-      //   alert("권한이 없습니다. 다시 로그인해주세요.");
-      // } else {
-      //   alert("저축에 실패했습니다. 다시 시도해 주세요.");
-      // }
     }
   };
-  // console.log("지금 선택된 wish 업데이트 완료후", selectedCard?.id);
 
   // 나의 포인트
   const callMyMoney = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:9999/children/get/point",
-        {
-          headers: {
-            Authorization: token, // 필요한 경우 토큰 추가
-          },
-        }
-      );
-
-      // console.log("금액 가져오기 성공:", response.data);
-
+      const response = await axios.get("api/children/get/point", {
+        headers: {
+          Authorization: token, // 필요한 경우 토큰 추가
+        },
+      });
       // 성공 후 상태 업데이트 (현재 모은 돈)
       setCurrentSaving(parseInt(response.data, 10));
     } catch (error) {
@@ -158,13 +115,22 @@ const WishDetailBox = ({ selectedCard, onSendData }) => {
             ></ProgressBar>
           </DetailTextBox>
         </DetailBox>
-        <DeleteWish>위시 삭제</DeleteWish>
-        <CollectMoney onClick={inserModalOpen}>돈모으기</CollectMoney>
+        <BtnBox>
+          <DeleteWish onClick={onCloseDetail}>상세 닫기 </DeleteWish>
+          <CollectMoney onClick={inserModalOpen}>돈모으기</CollectMoney>
+        </BtnBox>
       </WishDetailBack>
       {/* 돈모으기 모달이 열렸을 때만 표시 */}
       {isModalOpen && (
         <Modal width="400px" height="600px">
-          <ModalTitle>위시 돈 모으기</ModalTitle>
+          <ModalWapper>
+            <ModalTitle>위시 돈 모으기</ModalTitle>
+            <CancleIcon
+              src={`${process.env.PUBLIC_URL}/icons/cancle.png`}
+              alt="cancle"
+              onClick={inserModalClose}
+            />
+          </ModalWapper>
           <ModalPreview src={selectedCard.imgSrc} />
           <DetailText>{selectedCard.itemName}</DetailText>
           <DetailText>
@@ -182,36 +148,52 @@ const WishDetailBox = ({ selectedCard, onSendData }) => {
             value={savingAmt}
             onChange={(e) => setSavingAmt(e.target.value)}
           />
-          <CollectMoney onClick={handleCollectMoney}>
-            돈모으기-모달창
-          </CollectMoney>
+          <CollectMoney onClick={handleCollectMoney}>돈모으기</CollectMoney>
         </Modal>
       )}
     </>
   );
 };
 const WishDetailBack = styled.div`
-  background-color: #ececec;
+  /* background-color: #ececec; */
+  background-color: #ffffff;
+  border-radius: 20px;
   margin-top: 100px;
+  padding: 30px;
+  width: 80%;
+  margin: 100px auto 0;
 `;
 const Title = styled.h3`
-  color: black;
   text-align: center;
-  padding-top: 50px;
+  padding-top: 20px;
   font-weight: bold;
 `;
 const ModalTitle = styled.h3`
-  color: black;
   text-align: center;
   font-weight: bold;
+  margin-left: 100px;
 `;
 const DetailBox = styled.div`
   display: flex;
+  justify-content: center;
 `;
-
+const CancleIcon = styled.img`
+  width: 50px;
+  height: 50px;
+  margin-left: 60px;
+`;
+const ModalWapper = styled.div`
+  display: flex;
+  align-content: space-around;
+  justify-content: space-around;
+  align-items: flex-end;
+  margin-bottom: 10px;
+  gap: 30px;
+  margin: 30px 0;
+`;
 const InsertPreview = styled.img`
-  width: 20vw;
-  height: 20vh;
+  width: 15vw;
+  height: 25vh;
   border: 1px solid #ccc;
   border-radius: 10px;
 `;
@@ -228,35 +210,49 @@ const DetailTextBox = styled.div`
   flex-wrap: wrap;
   max-width: 300px;
   align-items: flex-start;
+  margin-left: 150px;
+  margin-top: 10px;
 `;
 const DetailText = styled.h5`
-  color: black;
   text-align: center;
   padding-top: 10px;
   font-weight: bold;
 `;
+
+const BtnBox = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+`;
+
+const ButtonSection = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+`;
 const DeleteWish = styled.button`
-  background-color: #4829d7;
+  background-color: #f98d5a;
   color: white;
   font-style: bold;
   font-size: 1.2rem;
-  border: 2px solid #4829d7;
+  border: 2px solid #f98d5a;
   border-radius: 10px;
-  width: 15vw;
+  width: 10vw;
   height: 5.8vh;
   margin-top: 1vh;
   font-weight: bold;
 `;
 const CollectMoney = styled.button`
-  background-color: #4829d7;
+  background-color: #9774fb;
   color: white;
   font-style: bold;
   font-size: 1.2rem;
-  border: 2px solid #4829d7;
+  border: 2px solid #9774fb;
   border-radius: 10px;
-  width: 15vw;
+  width: 10vw;
   height: 5.8vh;
   margin-top: 1vh;
+  margin-left: 30px;
   font-weight: bold;
 `;
 const FormInput = styled.input`
@@ -285,4 +281,5 @@ const ProgressBar = styled.div`
     transition: width 0.3s ease-in-out;
   }
 `;
+
 export default WishDetailBox;

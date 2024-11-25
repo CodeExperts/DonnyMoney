@@ -62,7 +62,6 @@ const LoginForm = () => {
         setMember({ username: "", password: "" });
       });
   };
-
   return (
     <LoginFormContainer>
       <ImgContainer>
@@ -132,6 +131,8 @@ const LoginFormContainer = styled.div`
   border-radius: 20px;
   overflow: hidden; /* 둥근 모서리에 내용이 잘리지 않도록 */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  background-color: white;
 `;
 
 const ImgContainer = styled.div`
@@ -188,7 +189,6 @@ const LoginContent = styled.div`
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  background-color: white;
 `;
 
 const Form = styled.form`
@@ -213,7 +213,7 @@ const Form = styled.form`
     bottom: -2px;
     width: 0%;
     height: 2px;
-    background-color: #38d39f;
+    background-color: #9774fb;
     transition: 0.4s;
   }
 
@@ -236,7 +236,7 @@ const Form = styled.form`
   }
 
   .input-div.focus > .i > i {
-    color: #38d39f;
+    color: #9774fb;
   }
 
   .input-div > div > input {
@@ -312,7 +312,8 @@ const Form = styled.form`
     height: 50px;
     border-radius: 25px;
     border: none;
-    background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+    /* background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f); */
+    background-color: #9774fb;
     background-size: 200%;
     font-size: 1.2rem;
     color: #fff;

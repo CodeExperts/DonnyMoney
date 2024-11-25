@@ -3,10 +3,12 @@ import styled from "styled-components";
 import { AuthContext } from "../../../App";
 import {
   fetcParentNotifications,
+  getDaysAgo,
   updateRead,
 } from "../../../services/NotificationService";
 import { useSSE } from "../../../services/sseEmitter";
 import { useNavigate } from "react-router-dom";
+import api from "../../../services/api";
 
 // 부모님용 알림아이콘, 알림목록
 export const ParentNotificationIcon = () => {
@@ -43,15 +45,35 @@ export const ParentNotificationIcon = () => {
 
   // SSE 연결
   const { eventSource, connectionError } = useSSE(
-    `${process.env.REACT_APP_BASE_URL}/notification/subscribe/${memberNo}`,
+    `${process.env.REACT_APP_BASE_URL}/api/notification/subscribe/parent/${memberNo}`,
     (notification) => {
+      // try {
+      //   if (
+      //     notification.notiNum !== -1 &&
+      //     notification.senderType === "child"
+      //   ) {
+      //     setNotifications((prev) => [notification, ...prev]); // 알림 목록 업데이트
+      //     setHasUnread(true); // 새 알림이 오면 미읽은 상태로 나타냄
+      //   }
+      // } catch (err) {
+      //   console.log("SSE 데이터 파싱 에러 : ", err);
+      // }
+      // 수정된 부분: SSE 이벤트 처리 개선
       try {
-        if (notification.notiNum !== -1) {
-          setNotifications((prev) => [notification, ...prev]); // 알림 목록 업데이트
-          setHasUnread(true); // 새 알림이 오면 미읽은 상태로 나타냄
+        if (
+          notification.notiNum !== -1 &&
+          notification.senderType === "child"
+        ) {
+          console.log("[SSE] 새로운 알림 수신:", notification);
+          setNotifications((prev) => {
+            const updated = [notification, ...prev];
+            console.log("[알림 업데이트] 업데이트된 알림 목록:", updated);
+            return updated;
+          });
+          setHasUnread(true); // 새 알림이 오면 미읽은 상태로 표시
         }
       } catch (err) {
-        console.log("SSE 데이터 파싱 에러 : ", err);
+        console.error("[SSE] 알림 데이터 처리 중 에러:", err); // 수정된 부분: 에러 로그 추가
       }
     }
   );
@@ -60,7 +82,7 @@ export const ParentNotificationIcon = () => {
   useEffect(() => {
     setListOpen(false);
     getNotifications();
-  }, []);
+  }, [memberNo, authorization]); // 수정된 부분: 의존성 배열에 추가
 
   // 알림 목록 변경시 로그출력해봄
   // useEffect(() => {
@@ -107,11 +129,12 @@ export const ParentNotificationIcon = () => {
                 onClick={() => handleRead(noti.notiNum, noti.category)}
               >
                 {/* 카테고리에 따른 알림메시지 설정 */}
-                {/* info는 현재 test용 */}
-                {noti.category === "info" && noti.message}
                 {/* 용돈계약서 */}
-                {noti.category === "contract" &&
-                  "아이의 소비계획서가 도착했습니다."}
+                <div>
+                  {noti.category === "contract" &&
+                    "아이의 소비계획서가 도착했습니다."}
+                </div>
+                {/* <div className="msgDate">{getDaysAgo(noti.createdAt)}</div> */}
               </NotificationItem>
             ))
           ) : (
@@ -148,7 +171,7 @@ const NotificationList = styled.div`
   position: absolute;
   top: 50px;
 
-  width: 300px;
+  width: 320px;
   max-height: 300px;
   right: 0;
   z-index: 1;
@@ -162,7 +185,9 @@ const NotificationList = styled.div`
 
 const NotificationItem = styled.div`
   cursor: pointer;
-  padding: 5px;
+  padding: 8px 10px;
+  display: flex;
+  justify-content: space-between;
 
   /* background-color: ${(props) => (props.$isRead ? "#ffffff" : "#fff9b1")}; */
   &.unread {
@@ -174,7 +199,11 @@ const NotificationItem = styled.div`
   }
 
   .message {
-    background-color: red;
+    /* background-color: red; */
+  }
+  .msgDate {
+    font-size: 14px;
+    color: #bebebe;
   }
 `;
 

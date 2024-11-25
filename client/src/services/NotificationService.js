@@ -1,16 +1,14 @@
 import axios from "axios";
+import api from "./api";
 
 // 부모 알림 목록 조회
 export const fetcParentNotifications = async (memberNo, authorization) => {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/notification/parent/${memberNo}`,
-      {
-        headers: {
-          Authorization: authorization,
-        },
-      }
-    );
+    const response = await axios.get(`api/notification/parent/${memberNo}`, {
+      headers: {
+        Authorization: authorization,
+      },
+    });
     console.log("알림목록 : ", response.data);
 
     return response.data;
@@ -21,14 +19,11 @@ export const fetcParentNotifications = async (memberNo, authorization) => {
 // 아이 알림 목록 조회
 export const fetchChildNotifications = async (memberNo, authorization) => {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/notification/child/${memberNo}`,
-      {
-        headers: {
-          Authorization: authorization,
-        },
-      }
-    );
+    const response = await axios.get(`api/notification/child/${memberNo}`, {
+      headers: {
+        Authorization: authorization,
+      },
+    });
     console.log("알림목록 : ", response.data);
     return response.data;
   } catch (err) {
@@ -40,15 +35,11 @@ export const fetchChildNotifications = async (memberNo, authorization) => {
 // 알림 읽음으로 업데이트
 export const updateRead = async (notiNum, authorization) => {
   try {
-    await axios.patch(
-      `${process.env.REACT_APP_BASE_URL}/notification/${notiNum}/read`,
-      null,
-      {
-        headers: {
-          Authorization: authorization,
-        },
-      }
-    );
+    await axios.patch(`api/notification/${notiNum}/read`, null, {
+      headers: {
+        Authorization: authorization,
+      },
+    });
     console.log("알림 읽음 완료");
   } catch (err) {
     console.log("알림 읽음 처리 에러 : ", err);
@@ -76,7 +67,7 @@ export const sendNotificationToChild = async (
     senderType: "parent",
   };
   const response = await fetch(
-    `${process.env.REACT_APP_BASE_URL}/notification/sendToChild`,
+    `api/notification/sendToChild`,
     {
       method: "POST",
       headers: {
@@ -110,7 +101,7 @@ export const sendNotificationToParent = async (
     senderType: "child",
   };
   const response = await fetch(
-    `${process.env.REACT_APP_BASE_URL}/notification/sendToParent`,
+    `/notification/sendToParent`,
     {
       method: "POST",
       headers: {
@@ -132,7 +123,7 @@ export const sendNotificationToParent = async (
 export const findParentNum = async (childNum, authorization) => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/notification/findParentNo/${childNum}`,
+      `api/notification/findParentNo/${childNum}`,
       {
         headers: {
           Authorization: `${authorization}`,
@@ -143,5 +134,28 @@ export const findParentNum = async (childNum, authorization) => {
     return response.data; // parent_num 반환
   } catch (error) {
     console.log("부모 넘버 조회 에러 : ", error);
+  }
+};
+
+// 날짜 배열 변환
+export const getDaysAgo = (dateArray) => {
+  const [year, month, day] = dateArray;
+  // Date  객체로 변환
+  const tragetDate = new Date(year, month - 1, day); // month는 0부터 시작됨
+  // 현재 날짜
+  const currentDate = new Date();
+  // 시간 차이를 계산
+  const diffTime = currentDate - tragetDate;
+
+  // 일 단위로 변환
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  // 문구로 변환
+  if (diffDays === 0) {
+    return "오늘";
+  } else if (diffDays > 0) {
+    return `${diffDays}일 전`;
+  } else {
+    return `${Math.abs(diffDays)}일 후`;
   }
 };

@@ -3,9 +3,9 @@ import { GlobalStyle } from "./styles/GlobalStyle";
 import Header from "./components/layouts/Header";
 import Navirouter from "./Navirouter";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-import Layout from "./components/layouts/Layout";
 import PlanProvider from "./pages/context/MoneyPlanContext";
+import Layout from "./components/layouts/Layout";
+
 // import PlanReport from "./components/pages/parent/PlanReport";
 // import MonthlyReportPage from "./pages/parent/MonthlyReportPage";
 
@@ -21,8 +21,7 @@ function App() {
   // axios.defaults.baseURL =
   //   // process.env.REACT_APP_BASE_URL || "http://52.79.249.178:9999";
   // axios.defaults.headers.common["Content-Type"] = "application/json";
-
-  console.log("axios.defaults.baseURL>>>>>",axios.defaults.baseURL);
+  //console.log("axios.defaults.baseURL>>>>>",axios.defaults.baseURL);
   const location = useLocation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);

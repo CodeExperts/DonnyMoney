@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import axios from "axios";
+import api from "../../../services/api";
 
 /**
  * SelectOptionNav 컴포넌트
@@ -61,7 +62,7 @@ const SelectOptionNav = ({
   const getChildrenList = () => {
     axios({
       method: "GET",
-      url: `${process.env.REACT_APP_BASE_URL}/parents/findChildren`,
+      url: `api/parents/findChildren`,
       headers: {
         Authorization: `${token}`,
       },
@@ -174,6 +175,8 @@ const Outer = styled.div`
   display: flex;
   justify-content: ${(props) =>
     props.$childrenCenter ? "center" : "space-between"};
+
+  margin-bottom: 30px;
 `;
 
 const SelectChildSection = styled.div`
@@ -183,7 +186,6 @@ const SelectChildSection = styled.div`
   padding: 10px;
   border-radius: 10px;
   /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
-  padding: 25px;
 `;
 
 const ChildContainer = styled.div``;
@@ -197,8 +199,10 @@ const ImageDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(245, 245, 245);
+  /* background-color: rgb(245, 245, 245); */
+  background-color: white;
   margin-bottom: 5px;
+  /* box-shadow: 0 0 0px 2px white; */
 
   img {
     width: 100%;
@@ -208,9 +212,11 @@ const ImageDiv = styled.div`
   ${(props) =>
     props.$isSelected &&
     css`
+      /* box-shadow: 0 0 5px 5px #f77833; */
+      /* box-shadow: 0 0 0px 5px #9774fb; */
       box-shadow: 0 0 0px 5px #ffd700;
-      /* box-shadow: 0 0 0px 5px #2ecc71; */
-      /* box-shadow: 0 0 0px 7px #ff6f61; */
+      /* box-shadow: 0 0 5px 5px #2ecc71; */
+      /* box-shadow: 0 0 3px 5px #fa8f58; */
     `}
 `;
 

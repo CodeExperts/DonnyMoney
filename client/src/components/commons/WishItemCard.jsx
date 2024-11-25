@@ -17,16 +17,18 @@ export const WishItemCard = ({
   cardFontColor, // Card font color (필수 x)
   progressBarHeight, // ProgressBar height (필수 x)
   childNum, // childNum (필수 x, 현재 부모 위시리스트 목록용)
+  isExpired, // 만료된 아이템 효과
   onClick, //Mywhish의 detail을 보기
 }) => {
   return (
     <Card
       onClick={onClick}
-      cardWidth={cardWidth}
-      cardHeight={cardHeight}
-      cardPadding={cardPadding}
-      cardBgColor={cardBgColor}
-      cardFontColor={cardFontColor}
+      $cardWidth={cardWidth}
+      $cardHeight={cardHeight}
+      $cardPadding={cardPadding}
+      $cardBgColor={cardBgColor}
+      $cardFontColor={cardFontColor}
+      $isExpired={isExpired}
     >
       <ItemImg>
         <img src={imgSrc || "/images/no-image.png"} alt={itemName} />
@@ -71,6 +73,28 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  margin: 0 auto;
+
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); */
+
+  /* 만료된 카드 스타일 */
+  /* position: relative;
+  ${(props) =>
+    props.$isExpired &&
+    `
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 20px; 
+        z-index: 1; 
+      }
+  `} */
 `;
 const ItemImg = styled.div`
   width: 100%;
@@ -101,8 +125,8 @@ const ProgressBar = styled.div`
     position: absolute;
     height: 100%;
     width: ${(props) => props.$progressRate || 0}%;
-    background-color: #4caf50;
     transition: width 0.3s ease-in-out;
+    background-color: #4caf50;
   }
 `;
 const ItemDetail = styled.div`

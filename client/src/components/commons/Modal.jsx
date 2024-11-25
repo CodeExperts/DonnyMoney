@@ -1,10 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-export const Modal = ({ width, height, padding, children }) => {
+export const Modal = ({ width, height, padding, sidePadding, children }) => {
   return (
     <Outer>
-      <Content width={width} height={height} padding={padding}>
+      <Content
+        width={width}
+        height={height}
+        padding={padding}
+        sidePadding={sidePadding}
+      >
         {children}
       </Content>
     </Outer>
@@ -28,6 +33,7 @@ const Content = styled.div`
   width: ${(props) => props.width || "400px"};
   height: ${(props) => props.height || "300px"};
   padding: ${(props) => props.padding || "0"};
+  padding: ${(props) => props.sidePadding && props.sidePadding};
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -36,5 +42,4 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* border: 1px solid red; */
 `;
