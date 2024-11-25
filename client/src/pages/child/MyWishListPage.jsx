@@ -6,7 +6,7 @@ import Activewish from "../../components/pages/child/wish/ActiveWish";
 const MyWishListPage = () => {
   return (
     <>
-      <Title>나의 꿈창고 🔮</Title>
+      <Title>나의 위시 창고 🔮</Title>
       <Activewish />
 
       {/* 성공한 위시 목록 */}

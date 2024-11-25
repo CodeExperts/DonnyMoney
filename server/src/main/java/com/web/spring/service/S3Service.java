@@ -36,6 +36,9 @@ public class S3Service {
 	//버킷 주소 동적 할당
 	@Value("${cloud.aws.region.static}")
 	private String region;
+	
+	@Value("${cloud.aws.s3.folder}")
+	private String folderPath;
 
 	// MultipartFile : 파일의 이름과 실제 데이터, 파일 크기 등을 구할 수 있는 인터페이스
 	public String upload(MultipartFile uploadFile) throws IOException{	
@@ -46,6 +49,9 @@ public class S3Service {
 		
 		// 파일 이름 중복 방지
 		String addUUIDName = getUUID + encodedName; 
+		
+	    // 최종 파일 경로 (폴더 포함)
+	    String s3Key = folderPath + addUUIDName;
 		
 		// MultipartFile 전달받아 임시파일을 만들고 File로 convert 후 S3에 업로드
 		File file = File.createTempFile("temp_", "_" + encodedName);
@@ -58,9 +64,9 @@ public class S3Service {
 		
 		try {
 			// S3에 파일 업로드
-			amazonS3Client.putObject(bucket, addUUIDName, file);
+			amazonS3Client.putObject(bucket, s3Key, file);
 			// 업로드된 파일 URL 생성
-			String fileUrl = amazonS3Client.getResourceUrl(bucket, addUUIDName);
+			String fileUrl = amazonS3Client.getResourceUrl(bucket, s3Key);
 			return fileUrl;
 		} catch (AmazonClientException e) {
 			log.error("File upload Failed",e);
@@ -76,14 +82,14 @@ public class S3Service {
 	// MultipartFile 전달받아 File로 convert 후 S3에 업로드
 	public String delete(String fileName) throws IOException{	
 		
-		String oldChar = "https://s3.ap-northeast-2.amazonaws.com/donnymoney/";
+		String oldChar = "https://s3.ap-northeast-2.amazonaws.com/donnymoney/"+ folderPath;
 		String s3FileName = URLDecoder.decode(fileName.replace(oldChar, ""),"UTF-8");
 		
 		log.info("DeleteFileName:: "+ s3FileName);
-		amazonS3Client.deleteObject(bucket, s3FileName);
+		amazonS3Client.deleteObject(bucket, folderPath+s3FileName);
 		
 		// 이미지 삭제여부 확인 
-	    if (!amazonS3Client.doesObjectExist(bucket, fileName)) {
+	    if (!amazonS3Client.doesObjectExist(bucket, folderPath+fileName)) {
 	        return "Delete :: Success";
 	    } else {
 	        return "Delete :: Failed";

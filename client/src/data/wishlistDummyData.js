@@ -1,14 +1,48 @@
 // 위시리스트 dummydata
-// "/images/donny1Profile.png" , "/images/donnySisterProfile.png"
+// 도니 1, 머니 2
+// 도니이 wishSlickDummyData.js와 같아야함
 
 export const wishlistDummyData = [
   {
     childNum: 1,
     imgSrc:
-      "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/ipad-card-40-pro-202405?wid=680&hei=528&fmt=p-jpg&qlt=95&.v=1713920820026",
-    itemName: "아이패드 프로",
-    itemPrice: 1250000,
-    progressRate: 30,
+      "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTh0c5LRxk8rSyT_oKZEGHTaOe8JMEfojKs7e0gefXRg2j3tr3hpGkT9D683wQi7P25TJ1bFYHcNgBKU9-fZfNKZ2rkVxHf_A&usqp=CAE",
+    itemName: "갈축키보드",
+    itemPrice: 80000,
+    progressRate: 0,
+  },
+  {
+    childNum: 1,
+    imgSrc:
+      "https://www.niceid.co.kr/resources/images/prod/img_acct_visual.png",
+    itemName: "적금모으기",
+    itemPrice: 1000000,
+    progressRate: 70,
+  },
+  {
+    childNum: 1,
+    imgSrc:
+      "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTsfBJmFBjZvwW1dMAaGC9qeaBa75Nr0vz63CuGKMRaWG6TVtpZZ96B5aXYM70YJBGxDEkgNjl7dmvQ4o_LX_y1hk2qg7LAJQHxAq9sYtK_NuAmOOlKjuei1w&usqp=CAE",
+    itemName: "전동킥보드",
+    itemPrice: 1000000,
+    progressRate: 20,
+  },
+  {
+    childNum: 2,
+    imgSrc:
+      "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTWBPRTV8v_PoDQmeRTLaxWPEO1vnD4AhmGzK8W-KH2QZU5ynE4Qld6l_8E0W0amKQwDqWytc73EVxMnITO-ZSoXoQoagTDvQVJI_vuPqWVOnVxVDpGR5b8Ow&usqp=CAE",
+    itemName: "포차코 인형",
+    itemPrice: 50000,
+    progressRate: 20,
+  },
+
+  {
+    childNum: 2,
+    imgSrc:
+      "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTbNuBeG8o5LE5eNbmLCFOowdqEnebYBiwFzz7Fnh8dKE5WM3rNfwUuXgzyN9x8p7_-l3xXGIlrBjugypS4RHZIfi3K_SiypqsJkf9NOQA1DFTP1APekrN_4Q&usqp=CAE",
+    itemName: "시나모롤 인형",
+    itemPrice: 40000,
+    progressRate: 10,
   },
   {
     childNum: 2,
@@ -21,10 +55,10 @@ export const wishlistDummyData = [
   {
     childNum: 1,
     imgSrc:
-      "https://www.niceid.co.kr/resources/images/prod/img_acct_visual.png",
-    itemName: "적금모으기",
-    itemPrice: 1000000,
-    progressRate: 45,
+      "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/ipad-card-40-pro-202405?wid=680&hei=528&fmt=p-jpg&qlt=95&.v=1713920820026",
+    itemName: "아이패드 프로",
+    itemPrice: 1250000,
+    progressRate: 30,
   },
   {
     childNum: 2,
@@ -34,12 +68,28 @@ export const wishlistDummyData = [
     progressRate: 50,
   },
   {
+    childNum: 2,
+    imgSrc:
+      "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTiYUjsFVJKmMoumjaMnfzrWFBqD12-TstfpquhgzmIpIYuKYv6nP2ZHB7l-THEiciMrcier9wc2oSR5l4H2GYhuE87u6-MNNuWWkcOJjdFz4xkB1XbFQav&usqp=CAE",
+    itemName: "마이멜로디",
+    itemPrice: 100000,
+    progressRate: 20,
+  },
+  {
     childNum: 1,
     imgSrc:
-      "https://cdn.eyesmag.com/content/uploads/posts/2021/01/14/nintendo-switch-super-mario-35-limited-edition-01-004d820c-dfe9-4e7e-82f7-ab9c7d003803.jpg",
-    itemName: "닌텐도 스위치 OLED",
-    itemPrice: 450000,
-    progressRate: 10,
+      "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTCg3pzAo4wVH-EYPozVVPApi_fEhnhDySFvm15bP7GJibo6MJf_tzR0ZMJLgbtxw8wGf4NL2p0S_4nDbim6MI0AGBIXMYtvQrn6qjGXwuhbsj5LVYJojqe&usqp=CAE",
+    itemName: "나이키 바지",
+    itemPrice: 100000,
+    progressRate: 30,
+  },
+  {
+    childNum: 2,
+    imgSrc:
+      "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR6_zXPVALcdaAvq3aRvQS655jBLCVfgNTa3Fwcq9aWW-FimJNJu5II5SOqg2JcwZMyzyhmxZmi5KW3uvgXJ3pspINuBAFjBw&usqp=CAE",
+    itemName: "폼폼푸린",
+    itemPrice: 50000,
+    progressRate: 15,
   },
   {
     childNum: 2,
@@ -50,12 +100,12 @@ export const wishlistDummyData = [
     progressRate: 65,
   },
   {
-    childNum: 1,
+    childNum: 2,
     imgSrc:
-      "https://cafe24.poxo.com/ec01/bagissue/UVTjSep0dwP4/wX7AtHyXEMVyGvv8xSZOVGgFkpOMtJlJfERo9UQAUEQxZAwvCf6arr/cVAPSp6K5cz+UGrxRQ==/_/web/product/medium/202208/b107f08c3d745a0b81686591a2899bca.jpg",
-    itemName: "백팩",
-    itemPrice: 105000,
-    progressRate: 40,
+      "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTOJkm6YlTY0YmiHT4e4Z0y6ZUhI89l02r0WHbhjYUzxiNT5nmGI3iST1Rewg1RidaMzCGi6lRzFP0ZYj8tXQRsEXQno5-O9Q&usqp=CAE",
+    itemName: "흰둥이 인형",
+    itemPrice: 50000,
+    progressRate: 10,
   },
   {
     childNum: 2,

@@ -9,6 +9,7 @@ import { AuthContext } from "../../../../App";
 import { Modal } from "../../../commons/Modal";
 import WishDetailBox from "./WishDetailBox";
 import api from "../../../../services/api";
+import { wishSlickDummyData } from "../../../../data/wishSlickDummyData";
 
 const Activewish = (imgSrc) => {
   const { memberNo, name, authorization } = useContext(AuthContext);
@@ -52,7 +53,7 @@ const Activewish = (imgSrc) => {
             savingAmt: savingAmt, // 숫자로 변환된 저축한 돈
           };
         });
-        setCards(formattedData);
+        setCards(wishSlickDummyData, ...formattedData);
         console.log("진행률 확인", formattedData);
       })
       .catch((err) => {

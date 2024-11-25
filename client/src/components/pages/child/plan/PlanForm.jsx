@@ -65,21 +65,26 @@ const PlanForm = () => {
             },
         };
     } else if (typeof plan === "object" && plan !== null) {
-        console.log("객체로 들어옴");
-        console.log("기타", plan.others?.name);
-        console.log("기타값", plan.others);
-        updatedFormData = {
-            cvs: plan.cvs || 0,
-            food: plan.food || 0,
-            shopping: plan.shopping || 0,
-            transport: plan.transport || 0,
-            saving: plan.saving || 0,
-            others: {
-                name: plan.others?.name || "기타",
-                value: plan.others ||  plan.others?.value,
-            },
-        };
-    } else if (!plan) {
+      console.log("객체로 들어옴");
+  
+      const others =
+          typeof plan.others === "object" && plan.others !== null
+              ? {
+                    name: plan.others.name || "기타",
+                    value: plan.others.value || 0,
+                }
+              : { name: "기타", value: 0 };
+  
+      updatedFormData = {
+          cvs: plan.cvs || 0,
+          food: plan.food || 0,
+          shopping: plan.shopping || 0,
+          transport: plan.transport || 0,
+          saving: plan.saving || 0,
+          others,
+      };
+  }
+   else if (!plan) {
         console.log("값이 없음 또는 undefined/null");
         updatedFormData = { ...defaultValues };
     }
@@ -119,7 +124,7 @@ const PlanForm = () => {
       }
     });
   };
-
+console.log("formData를 확인", formData);
   const handleUpdatePlan = () => {
     setPlan((prevPlan) => ({
       ...prevPlan,

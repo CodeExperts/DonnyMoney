@@ -2,7 +2,7 @@ export const wishFinishListDummyData = [
   {
     id: 1,
     imgSrc:
-      "https://static-resource.mlb-korea.com/cdn-cgi/image/q=75,w=876,format=auto,fit=scale-down,onerror=redirect/images/goods/ec/M24F3ATRB304450MGD/thnail/E74970C89C0F4D81A63C0D71ACCD93AD.png",
+      "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQiSZr5qZQYJefzT17po02ony9xns44AQW_jRa8JuhwMphtm8aCFJzqQiRxMfB9_DBYTTzw9p4YQcn8NXtlWAZzwz2F5BtNdiGsMWlKjnl_GoKMHHCXd2BW6g&usqp=CAE",
     itemName: "후드집업",
     itemPrice: 100000,
     progressRate: 100,
@@ -10,15 +10,14 @@ export const wishFinishListDummyData = [
   {
     id: 2,
     imgSrc:
-      "https://cafe24.poxo.com/ec01/bagissue/UVTjSep0dwP4/wX7AtHyXEMVyGvv8xSZOVGgFkpOMtJlJfERo9UQAUEQxZAwvCf6arr/cVAPSp6K5cz+UGrxRQ==/_/web/product/medium/202208/b107f08c3d745a0b81686591a2899bca.jpg",
+      "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQB3gozBO4ayuqxquC90CtLT1f4wxow6Q1AODk9VWhPFhiL7V8_b8RC_6wHnYV68r4jbHA7eEWwG2Q6t3uf9BFWM1Q5Bs3lifLs5B5Rrgs&usqp=CAE",
     itemName: "백팩",
     itemPrice: 105000,
     progressRate: 100,
   },
   {
     id: 3,
-    imgSrc:
-      "https://mstatic1.e-himart.co.kr/contents/goods/00/21/05/43/30/0021054330__MRMM3KHA__M_640_640.jpg",
+    imgSrc: "https://www.biotimes.co.kr/news/photo/202109/6548_6566_1838.jpg",
     itemName: "애플워치",
     itemPrice: 250000,
     progressRate: 100,
@@ -26,17 +25,28 @@ export const wishFinishListDummyData = [
   {
     id: 4,
     imgSrc:
-      "https://lh5.googleusercontent.com/proxy/26hc56eKGnbVGrbvrW1vPJyEn1IW10Q7b5V1siz9T2yR_wGD_buOq2x3VyXzV2Zzfdnom2eYClpHnWsSjjsRde27nytOA71xOhl_MwCkZ5Ov--NO1Id_XtbLuM5ihbFwmM-E5SNyEPxqQgSLblavMP9AmA8g44GuYcNtiQaTMZE",
-    itemName: "삼성 갤럭시 탭 S9",
-    itemPrice: 840000,
+      "https://cdn.eyesmag.com/content/uploads/posts/2021/01/14/nintendo-switch-super-mario-35-limited-edition-01-004d820c-dfe9-4e7e-82f7-ab9c7d003803.jpg",
+    itemName: "닌텐도 스위치 OLED",
+    itemPrice: 450000,
+    savingAmt: 50000,
     progressRate: 100,
   },
   {
     id: 5,
     imgSrc:
-      "https://ae01.alicdn.com/kf/Sd335ff5d502043e6b4023f7461d71bdc9.jpg_640x640q90.jpg",
-    itemName: "PS5 디스크 에디션",
-    itemPrice: 600000,
+      "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQY19t6kdgf649plQd_3BAj-Ym_bWflmCu8tD_bJWTySU5xHi5LiHatDpkNZCO_yB9fYR_G7DusAUrvlShJexWTZzMqi2QH7OQOCAvokOo&usqp=CAE",
+    itemName: "운동화",
+    itemPrice: 45000,
+    savingAmt: 50000,
     progressRate: 100,
   },
+
+  // {
+  //   id: 4,
+  //   imgSrc:
+  //     "https://lh5.googleusercontent.com/proxy/26hc56eKGnbVGrbvrW1vPJyEn1IW10Q7b5V1siz9T2yR_wGD_buOq2x3VyXzV2Zzfdnom2eYClpHnWsSjjsRde27nytOA71xOhl_MwCkZ5Ov--NO1Id_XtbLuM5ihbFwmM-E5SNyEPxqQgSLblavMP9AmA8g44GuYcNtiQaTMZE",
+  //   itemName: "삼성 갤럭시 탭 S9",
+  //   itemPrice: 840000,
+  //   progressRate: 100,
+  // },
 ];
