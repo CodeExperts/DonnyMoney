@@ -122,33 +122,56 @@ const WishDetailBox = ({ selectedCard, onSendData, onCloseDetail }) => {
       </WishDetailBack>
       {/* 돈모으기 모달이 열렸을 때만 표시 */}
       {isModalOpen && (
-        <Modal width="400px" height="600px">
-          <ModalWapper>
-            <ModalTitle>위시 돈 모으기</ModalTitle>
-            <CancleIcon
-              src={`${process.env.PUBLIC_URL}/icons/cancle.png`}
-              alt="cancle"
-              onClick={inserModalClose}
-            />
-          </ModalWapper>
-          <ModalPreview src={selectedCard.imgSrc} />
-          <DetailText>{selectedCard.itemName}</DetailText>
-          <DetailText>
-            목표가격 : {formatCurrency(selectedCard.itemPrice)}원
-          </DetailText>
-          <DetailText>
-            현재까지 모은 돈 : {formatCurrency(selectedCard.savingAmt)}원
-          </DetailText>
-          <DetailText>
-            저축가능한 돈 : {formatCurrency(currentSaving)}
-          </DetailText>
-          <DetailText>넣을 돈</DetailText>
-          <FormInput
-            type="text"
-            value={savingAmt}
-            onChange={(e) => setSavingAmt(e.target.value)}
-          />
-          <CollectMoney onClick={handleCollectMoney}>돈모으기</CollectMoney>
+        <Modal width="400px" height="fit-content" padding="20px">
+          <Outer>
+            <ModalWapper>
+              <ModalTitle>위시 돈 모으기</ModalTitle>
+              <CancleIcon
+                src={`${process.env.PUBLIC_URL}/icons/cancle.png`}
+                alt="cancle"
+                onClick={inserModalClose}
+              />
+            </ModalWapper>
+
+            <ModalPreview>
+              <img src={selectedCard.imgSrc} alt="" />
+            </ModalPreview>
+
+            <DetailText>{selectedCard.itemName}</DetailText>
+            <DetailText>
+              목표가격 : {formatCurrency(selectedCard.itemPrice)}원
+            </DetailText>
+            <DetailText>
+              현재까지 모은 돈 : {formatCurrency(selectedCard.savingAmt)}원
+            </DetailText>
+            <DetailText>
+              저축가능한 돈 : {formatCurrency(currentSaving)}
+            </DetailText>
+            <DetailText>넣을 돈</DetailText>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                marginBottom: "24px",
+              }}
+            >
+              <FormInput
+                type="text"
+                value={savingAmt}
+                onChange={(e) => setSavingAmt(e.target.value)}
+              />
+            </div>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <CollectMoney onClick={handleCollectMoney}>돈모으기</CollectMoney>
+            </div>
+          </Outer>
         </Modal>
       )}
     </>
@@ -160,36 +183,43 @@ const WishDetailBack = styled.div`
   border-radius: 20px;
   margin-top: 100px;
   padding: 30px;
-  width: 80%;
+  width: 75%;
   margin: 100px auto 0;
 `;
 const Title = styled.h3`
   text-align: center;
-  padding-top: 20px;
+  /* padding-top: 20px; */
+  margin-bottom: 40px;
   font-weight: bold;
 `;
-const ModalTitle = styled.h3`
-  text-align: center;
+const ModalTitle = styled.div`
   font-weight: bold;
-  margin-left: 100px;
+  font-size: 30px;
+  margin: 0 auto;
 `;
 const DetailBox = styled.div`
   display: flex;
   justify-content: center;
+  gap: 40px;
+  margin-bottom: 40px;
 `;
 const CancleIcon = styled.img`
-  width: 50px;
-  height: 50px;
+  cursor: pointer;
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 30px;
+  height: 30px;
   margin-left: 60px;
+`;
+const Outer = styled.div`
+  position: relative;
+  width: 100%;
 `;
 const ModalWapper = styled.div`
   display: flex;
-  align-content: space-around;
-  justify-content: space-around;
-  align-items: flex-end;
   margin-bottom: 10px;
-  gap: 30px;
-  margin: 30px 0;
+  width: 100%;
 `;
 const InsertPreview = styled.img`
   width: 15vw;
@@ -197,11 +227,15 @@ const InsertPreview = styled.img`
   border: 1px solid #ccc;
   border-radius: 10px;
 `;
-const ModalPreview = styled.img`
-  max-width: 20vw;
-  max-height: 20vh;
+const ModalPreview = styled.div`
+  width: 200px;
+  height: 200px;
   border: 1px solid #ccc;
   border-radius: 10px;
+  margin: 0 auto;
+  img {
+    width: 100%;
+  }
 `;
 const DetailTextBox = styled.div`
   display: flex;
@@ -210,8 +244,6 @@ const DetailTextBox = styled.div`
   flex-wrap: wrap;
   max-width: 300px;
   align-items: flex-start;
-  margin-left: 150px;
-  margin-top: 10px;
 `;
 const DetailText = styled.h5`
   text-align: center;
@@ -222,24 +254,19 @@ const DetailText = styled.h5`
 const BtnBox = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 15px;
-`;
-
-const ButtonSection = styled.div`
-  display: flex;
-  justify-content: center;
+  align-items: center;
   gap: 20px;
 `;
+
 const DeleteWish = styled.button`
   background-color: #f98d5a;
   color: white;
   font-style: bold;
   font-size: 1.2rem;
   border: 2px solid #f98d5a;
-  border-radius: 10px;
-  width: 10vw;
-  height: 5.8vh;
-  margin-top: 1vh;
+  border-radius: 20px;
+  width: 180px;
+  height: 43px;
   font-weight: bold;
 `;
 const CollectMoney = styled.button`
@@ -248,11 +275,9 @@ const CollectMoney = styled.button`
   font-style: bold;
   font-size: 1.2rem;
   border: 2px solid #9774fb;
-  border-radius: 10px;
-  width: 10vw;
-  height: 5.8vh;
-  margin-top: 1vh;
-  margin-left: 30px;
+  border-radius: 20px;
+  width: 180px;
+  height: 43px;
   font-weight: bold;
 `;
 const FormInput = styled.input`

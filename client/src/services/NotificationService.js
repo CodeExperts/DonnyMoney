@@ -101,7 +101,7 @@ export const sendNotificationToParent = async (
     senderType: "child",
   };
   const response = await fetch(
-    `/notification/sendToParent`,
+    `api/notification/sendToParent`,
     {
       method: "POST",
       headers: {

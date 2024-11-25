@@ -331,7 +331,7 @@ const PlanReport = ({ childNum, year, month, childName }) => {
           </Title>
           <ContainChart>
             {/* 퀴즈를 풀지 않았을 경우 메시지 */}
-            {isQuizEmpty && <p>📢아이의 퀴즈내역이 없습니다.</p>}
+            {isQuizEmpty && <div>📢아이의 퀴즈내역이 없습니다.</div>}
             {!isQuizEmpty && (
               <Chart2Radar>
                 {showQuizResultCategories.length > 0 &&
@@ -344,7 +344,7 @@ const PlanReport = ({ childNum, year, month, childName }) => {
                     options={options2} // 옵션 전달
                   />
                 ) : (
-                  <p>아이가 아직 퀴즈를 풀지 않았습니다.</p> // 데이터가 없을 경우 메시지 출력
+                  <div>아이가 아직 퀴즈를 풀지 않았습니다.</div> // 데이터가 없을 경우 메시지 출력
                 )}
               </Chart2Radar>
             )}
@@ -412,10 +412,10 @@ const ContainChart = styled.div`
   margin: 0px 20px;
   box-sizing: border-box;
 
+  font-size: 20px;
+  text-align: center;
+
   .paymentEmptyMsg {
-    text-align: center;
-    margin-top: 200px;
-    font-size: 20px;
   }
 `;
 
