@@ -9,65 +9,87 @@ import { AuthContext } from "../../../../App";
 import api from "../../../../services/api";
 
 const PlanForm = () => {
+  // 숫자로 변환 및 기본값 처리 함수
+  // null-safe 데이터 변환
+  const parseToNumber = (value) => {
+    if (value == null || value === "") return 0; // null 또는 빈 값 처리
+    const numericValue = parseInt(value, 10);
+    return isNaN(numericValue) ? 0 : numericValue;
+  };
+
   const { plan, setPlan } = useContext(PlanContext);
   const { authorization } = useContext(AuthContext); // AuthContext에서 토큰 가져오기
   const [isupdate, setUPdate] = useState(false); // 기타버튼 누르기
   const [isVisible, setIsVisible] = useState(true); //기타버튼 보이기
   const [formData, setFormData] = useState({
-    food: plan.food,
-    cvs: plan.cvs,
-    shopping: plan.shopping,
-    transport: plan.transport,
-    saving: plan.saving,
+    food: parseToNumber(plan?.food), // 문자열 처리
+    cvs: parseToNumber(plan?.cvs),
+    shopping: parseToNumber(plan?.shopping),
+    transport: parseToNumber(plan?.transport),
+    saving: parseToNumber(plan?.saving),
     others: {
-      name: plan.others?.name,
-      value: plan.others?.value,
+      name: plan?.others?.name || "",
+      value: parseToNumber(plan?.others?.value),
     },
   });
 
-  const token = authorization;
-  const today = new Date();
-  const currentYear = today.getFullYear();
-  const currentMonth = today.getMonth() + 1;
-
   // 초기값을 API에서 가져오기
   useEffect(() => {
-    const fetchInitialData = async () => {
-      try {
-        const response = await axios({
-          method: "GET",
-          url: `api/children/show/plans?year=${currentYear}&month=${currentMonth}`,
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        });
-        console.log("Initial API Response:", response.data);
+    console.log("1. plan이 변경됨 :", plan);
 
-        // 가져온 데이터를 PlanContext와 formData에 설정
-        const planData = response.data;
-
-        setFormData({
-          food: planData.food || 0,
-          cvs: planData.cvs || 0,
-          shopping: planData.shopping || 0,
-          transport: planData.transport || 0,
-          saving: planData.saving || 0,
-          others: {
-            name: planData.saving.name, // 이름 필드
-            value: planData.saving.value, // 값 필드
-          },
-        });
-      } catch (error) {
-        console.error(
-          "Error fetching initial data:",
-          error.response || error.message
-        );
-      }
+    const defaultValues = {
+        cvs: 0,
+        food: 0,
+        shopping: 0,
+        transport: 0,
+        saving: 0,
+        others: {
+            name: "기타",
+            value: 0,
+        },
     };
 
-    fetchInitialData();
-  }, []);
+    let updatedFormData = null;
+
+    if (Array.isArray(plan)) {
+        console.log("배열로 들어옴");
+        updatedFormData = {
+            cvs: plan.find((item) => item.label === "편의점")?.value || 0,
+            food: plan.find((item) => item.label === "음식")?.value || 0,
+            shopping: plan.find((item) => item.label === "쇼핑")?.value || 0,
+            transport: plan.find((item) => item.label === "교통")?.value || 0,
+            saving: plan.find((item) => item.label === "저축")?.value || 0,
+            others: {
+                name: "기타",
+                value: plan.find((item) => item.label === "기타")?.value || 0,
+            },
+        };
+    } else if (typeof plan === "object" && plan !== null) {
+        console.log("객체로 들어옴");
+        console.log("기타", plan.others?.name);
+        console.log("기타값", plan.others);
+        updatedFormData = {
+            cvs: plan.cvs || 0,
+            food: plan.food || 0,
+            shopping: plan.shopping || 0,
+            transport: plan.transport || 0,
+            saving: plan.saving || 0,
+            others: {
+                name: plan.others?.name || "기타",
+                value: plan.others ||  plan.others?.value,
+            },
+        };
+    } else if (!plan) {
+        console.log("값이 없음 또는 undefined/null");
+        updatedFormData = { ...defaultValues };
+    }
+
+    if (updatedFormData) {
+        console.log("업데이트될 FormData:", updatedFormData);
+        setFormData(updatedFormData);
+    }
+}, [plan]);
+
 
   const handleInputChange = (e) => {
     const { name, value, dataset } = e.target;
@@ -113,6 +135,10 @@ const PlanForm = () => {
     setUPdate(true);
     setIsVisible(false);
   };
+  console.log(
+    "PlanForm의 데이터 수정",
+    Number(formData.cvs).toLocaleString("ko-KR")
+  );
   return (
     <Container>
       <Title>카테고리</Title>

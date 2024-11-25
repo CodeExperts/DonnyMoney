@@ -94,7 +94,7 @@ const PlanReport = ({ childNum, year, month, childName }) => {
         });
 
         setReportData(response.data);
-        // console.log(response.data);
+        console.log("소비내역 들어오는지 확인", response.data);
       } catch (error) {
         if (error.response) {
           // 서버 응답에서 오류 메시지 확인
